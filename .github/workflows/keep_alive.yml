@@ -3,13 +3,18 @@ name: Render Keep Alive
 
 on:
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Render Backend
+      - name: Ping Render Backend Every 1 Minute
         run: |
-          curl -s --max-time 15 "https://telegram-account-jql1.onrender.com/" > /dev/null
+          for i in {1..5}; do
+            curl -s --max-time 15 "https://telegram-account-jql1.onrender.com/" > /dev/null
+            if [ $i -lt 5 ]; then
+              sleep 60
+            fi
+          done
