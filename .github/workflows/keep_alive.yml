@@ -1,0 +1,15 @@
+# .github/workflows/keep_alive.yml
+name: Render Keep Alive
+
+on:
+  schedule:
+    - cron: '*/13 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render Backend
+        run: |
+          curl -s --max-time 15 "https://telegram-account-jql1.onrender.com/" > /dev/null
